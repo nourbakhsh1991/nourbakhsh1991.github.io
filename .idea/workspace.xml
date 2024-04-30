@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="df5dbd49-d772-443c-8e3d-46d6434c4eab" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/images/portfolio/Screenshot 2024-04-30 103347.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/portfolio/Screenshot 2024-04-30 111710.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/portfolio/Screenshot from 2024-04-29 14-25-39.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/portfolio/Screenshot from 2024-04-29 15-45-14.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/profile-pic.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/favicon.png" beforeDir="false" afterPath="$PROJECT_DIR$/favicon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/profile-pic.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,7 +38,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "E:/workspace/Personal/MySite/my-site/images/portfolio",
+    "last_opened_file_path": "E:/workspace/Personal/MySite/my-site/inc",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -56,6 +50,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\workspace\Personal\MySite\my-site\inc" />
       <recent name="E:\workspace\Personal\MySite\my-site\images\portfolio" />
       <recent name="E:\workspace\Personal\MySite\my-site" />
       <recent name="E:\workspace\Personal\MySite\my-site\src\assets\css" />
@@ -89,12 +84,24 @@
       <updated>1714231518317</updated>
       <workItem from="1714231520484" duration="6639000" />
       <workItem from="1714239366204" duration="6534000" />
-      <workItem from="1714491914533" duration="2955000" />
+      <workItem from="1714491914533" duration="3579000" />
+      <workItem from="1714502554421" duration="108000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
