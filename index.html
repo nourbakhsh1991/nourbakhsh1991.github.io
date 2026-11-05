@@ -48,7 +48,7 @@
 
 <article class="reveal" style="display: flex; flex-wrap: wrap; gap: 24px 40px; align-items: flex-start">
 <div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
-<p class="mono" style="margin: 0; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent)">01 / 06 · Research</p>
+<p class="mono" style="margin: 0; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent)">01 / 07 · Research</p>
 <h3 style="margin: 0; font-size: 28px; line-height: 1.1; font-weight: 600; letter-spacing: -0.01em">Stonestacker</h3>
 <p style="margin: 0; color: var(--text-2)">A mobile robot that finds natural stones, works out how to hold each one, and picks it up by itself. The long-term goal is to stack stones into dry-stone walls, with no mortar, on outdoor construction sites.</p>
 <p style="margin: 0; color: var(--text-2)">It's a Clearpath Husky A200 with an xArm 850 arm, plus a LiDAR and a camera, all running on ROS 2 on an NVIDIA Jetson Orin.</p>
@@ -71,7 +71,7 @@
 
 <article class="reveal" style="display: flex; flex-wrap: wrap; gap: 24px 40px; align-items: flex-start">
 <div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
-<p class="mono" style="margin: 0; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent)">02 / 06 · Research</p>
+<p class="mono" style="margin: 0; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent)">02 / 07 · Research</p>
 <h3 style="margin: 0; font-size: 28px; line-height: 1.1; font-weight: 600; letter-spacing: -0.01em">Excavator terrain mapping</h3>
 <p style="margin: 0; color: var(--text-2)">I'm part of an Ontario Tech research project on autonomous excavators with KOCETI and KIMM in Korea. A LiDAR on the boom scans the ground as the machine digs, and from those scans we build live local and global maps of the site.</p>
 <p style="margin: 0; font-size: 14px; color: var(--muted)">This is ongoing work. In the model, the excavator levels a mound and dumps to the side while the boom LiDAR updates the map.</p>
@@ -98,7 +98,33 @@
 
 <article class="reveal" style="display: flex; flex-wrap: wrap; gap: 24px 40px; align-items: flex-start">
 <div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
-<p class="mono" style="margin: 0; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent)">03 / 06 · Web</p>
+<p class="mono" style="margin: 0; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent)">03 / 07 · Product</p>
+<h3 style="margin: 0; font-size: 28px; line-height: 1.1; font-weight: 600; letter-spacing: -0.01em">Dipi Docs</h3>
+<p style="margin: 0; color: var(--text-2)">A document viewer that runs entirely in the browser. It opens PDF, Word and Excel files with no server and no plugins, and lets people annotate all three. It's built in Rust compiled to WebAssembly, with a TypeScript core and a drop-in web-component interface, so it can be embedded in any web app.</p>
+<p style="margin: 0; font-size: 14px; color: var(--muted)">In development. Editing for Excel and Word is in progress. The model shows the idea, not the product's real interface: pick a file type to open it and watch it get annotated.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 6px"><span style="height: 22px; padding: 0 10px; border-radius: 9999px; background: var(--neutral-subtle); color: var(--text-2); font-size: 11px; font-weight: 600; display: inline-flex; align-items: center">Rust</span><span style="height: 22px; padding: 0 10px; border-radius: 9999px; background: var(--neutral-subtle); color: var(--text-2); font-size: 11px; font-weight: 600; display: inline-flex; align-items: center">WebAssembly</span><span style="height: 22px; padding: 0 10px; border-radius: 9999px; background: var(--neutral-subtle); color: var(--text-2); font-size: 11px; font-weight: 600; display: inline-flex; align-items: center">TypeScript</span><span style="height: 22px; padding: 0 10px; border-radius: 9999px; background: var(--neutral-subtle); color: var(--text-2); font-size: 11px; font-weight: 600; display: inline-flex; align-items: center">Web Components</span></div>
+</div>
+<div class="panel" style="flex: 2 1 560px; min-width: 0; position: relative; height: 500px; border-radius: 18px; overflow: hidden">
+<canvas data-ref="refDipi" role="img" aria-label="Model: a browser window opens a PDF, a Word document and an Excel sheet, and annotates each" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block; touch-action: pan-y; cursor: default"></canvas>
+<div class="glass" style="position: absolute; left: 16px; top: 16px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; pointer-events: none">
+<span style="font-size: 11px; color: var(--muted)">Viewer · simulated</span>
+<span class="mono" style="font-size: 14px; font-weight: 500" data-text="dpName"></span>
+<span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-2)"><span class="pulse" style="width: 6px; height: 6px; border-radius: 50%; background: var(--success)"></span><span data-text="dpSay"></span></span>
+</div>
+<div class="glass" style="position: absolute; left: 16px; right: 16px; bottom: 16px; padding: 10px 12px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px">
+<div class="seg" role="group" aria-label="File type" style="display: inline-flex; gap: 2px; padding: 4px; border-radius: 24px; background: var(--bg-surface); border: 1px solid var(--border-subtle)">
+<button aria-pressed="" data-on="dipiPdf" style="height: 36px; padding: 0 14px; border: none; border-radius: 9999px; background: transparent; color: var(--text-2); font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer" data-bind="aria-pressed:dpA">PDF</button>
+<button aria-pressed="" data-on="dipiDoc" style="height: 36px; padding: 0 14px; border: none; border-radius: 9999px; background: transparent; color: var(--text-2); font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer" data-bind="aria-pressed:dpB">Word</button>
+<button aria-pressed="" data-on="dipiXls" style="height: 36px; padding: 0 14px; border: none; border-radius: 9999px; background: transparent; color: var(--text-2); font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer" data-bind="aria-pressed:dpC">Excel</button>
+</div>
+<span style="font-size: 12px; font-weight: 600; color: var(--text-2)">No server · no plugins</span>
+</div>
+</div>
+</article>
+
+<article class="reveal" style="display: flex; flex-wrap: wrap; gap: 24px 40px; align-items: flex-start">
+<div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<p class="mono" style="margin: 0; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent)">04 / 07 · Web</p>
 <h3 style="margin: 0; font-size: 28px; line-height: 1.1; font-weight: 600; letter-spacing: -0.01em">C1 HMS</h3>
 <p style="margin: 0; color: var(--text-2)">A live map of a hospital and every smart object in it. The ASP.NET Core back end converts AutoCAD DWG floor plans into primitive shapes for a web map, and the devices on that map report over Modbus. We built it for a clean room: sealed doors and pass boxes open and close on the map as they do in the room, and a click on any object shows its details. The wider hospital management system stopped at an early stage.</p>
 <p style="margin: 0; font-size: 14px; color: var(--muted)">The model is a clean-room suite running on simulated data. It starts as the flat DWG drawing, then the devices come to life. Click a door, pass box or pressure sensor to inspect it.</p>
@@ -120,7 +146,7 @@
 
 <article class="reveal" style="display: flex; flex-wrap: wrap; gap: 24px 40px; align-items: flex-start">
 <div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
-<p class="mono" style="margin: 0; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent)">04 / 06 · Embedded</p>
+<p class="mono" style="margin: 0; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent)">05 / 07 · Embedded</p>
 <h3 style="margin: 0; font-size: 28px; line-height: 1.1; font-weight: 600; letter-spacing: -0.01em">C1 Control Panel</h3>
 <p style="margin: 0; color: var(--text-2)">A Qt QML and C++ application for the operating-room wall panel. The surgical team controls the lights by voice, hands-free, and the panel adds anesthesia and surgery timers, an intercom, music, medical gas status and air quality, with the room hardware driven over Modbus.</p>
 <p style="margin: 0; font-size: 14px; color: var(--muted)">The wall screen shows the panel's Lights page. Pick a command: the panel hears it, the dials update, then the surgical lights and the ceiling air flow respond.</p>
@@ -142,7 +168,7 @@
 
 <article class="reveal" style="display: flex; flex-wrap: wrap; gap: 24px 40px; align-items: flex-start">
 <div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
-<p class="mono" style="margin: 0; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent)">05 / 06 · Industrial</p>
+<p class="mono" style="margin: 0; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent)">06 / 07 · Industrial</p>
 <h3 style="margin: 0; font-size: 28px; line-height: 1.1; font-weight: 600; letter-spacing: -0.01em">Ahar High Level System</h3>
 <p style="margin: 0; color: var(--text-2)">A WPF application that communicates with the Ahar PLC. It is the high-level layer that sits on top of the controller. Its project explorer covers the power meter, AVR, FCR and PSS controllers, set points, limiters, protection and online charts.</p>
 <p style="margin: 0; font-size: 14px; color: var(--muted)">The monitor shows the app's power meter page. Telemetry streams from the PLC rack into its fields and online chart. Send a command and it travels back to the rack.</p>
@@ -164,7 +190,7 @@
 
 <article class="reveal" style="display: flex; flex-wrap: wrap; gap: 24px 40px; align-items: flex-start">
 <div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
-<p class="mono" style="margin: 0; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent)">06 / 06 · Robotics</p>
+<p class="mono" style="margin: 0; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent)">07 / 07 · Robotics</p>
 <h3 style="margin: 0; font-size: 28px; line-height: 1.1; font-weight: 600; letter-spacing: -0.01em">SixR-20</h3>
 <p style="margin: 0; color: var(--text-2)">I led the two-person programming team for FUM-6R, a six-axis industrial robot built at FUM-CARE, Ferdowsi University of Mashhad. We wrote its Beckhoff PLC software in TwinCAT 2, and SixR-20, a C# WPF application for trajectory generation and robot positioning. With the engineering team, I implemented motion control, kinematics and inverse kinematics to optimize the robot's movement.</p>
 <p style="margin: 0; font-size: 14px; color: var(--muted)">FUM-6R carries up to 20 kg at up to 3 m/s, with repeatability down to ±0.015 mm. The model follows a figure-8 path through its waypoints and solves all six joint angles every frame.</p>
@@ -201,7 +227,7 @@
 <div class="reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 12px">
 <div style="background: var(--bg-surface); border-radius: 14px; padding: 16px 18px; display: flex; flex-direction: column; gap: 12px">
 <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px"><span style="font-size: 16px; font-weight: 600">Back end</span><span style="height: 22px; padding: 0 10px; border-radius: 9999px; background: var(--accent-subtle); color: var(--accent); font-size: 11px; font-weight: 600; display: inline-flex; align-items: center">Daily</span></div>
-<div style="display: flex; flex-wrap: wrap; gap: 6px"><span style="height: 24px; padding: 0 10px; border-radius: 9999px; background: var(--neutral-subtle); color: var(--text); font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">C#</span><span style="height: 24px; padding: 0 10px; border-radius: 9999px; background: var(--neutral-subtle); color: var(--text); font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">.NET</span><span style="height: 24px; padding: 0 10px; border-radius: 9999px; background: var(--neutral-subtle); color: var(--text); font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">ASP.NET Core</span><span style="height: 24px; padding: 0 10px; border-radius: 9999px; background: var(--neutral-subtle); color: var(--text); font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">SQL Server</span></div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px"><span style="height: 24px; padding: 0 10px; border-radius: 9999px; background: var(--neutral-subtle); color: var(--text); font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">C#</span><span style="height: 24px; padding: 0 10px; border-radius: 9999px; background: var(--neutral-subtle); color: var(--text); font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">.NET</span><span style="height: 24px; padding: 0 10px; border-radius: 9999px; background: var(--neutral-subtle); color: var(--text); font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">ASP.NET Core</span><span style="height: 24px; padding: 0 10px; border-radius: 9999px; background: var(--neutral-subtle); color: var(--text); font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">SQL Server</span><span style="height: 24px; padding: 0 10px; border-radius: 9999px; background: var(--neutral-subtle); color: var(--text); font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">CI/CD</span><span style="height: 24px; padding: 0 10px; border-radius: 9999px; background: var(--neutral-subtle); color: var(--text); font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">Automated testing</span><span style="height: 24px; padding: 0 10px; border-radius: 9999px; background: var(--neutral-subtle); color: var(--text); font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">Docker</span></div>
 <span style="font-size: 12px; color: var(--muted)">AuditDashboard, C1 Tech Group</span>
 </div>
 <div style="background: var(--bg-surface); border-radius: 14px; padding: 16px 18px; display: flex; flex-direction: column; gap: 12px">
@@ -225,9 +251,9 @@
 <span style="font-size: 12px; color: var(--muted)">Stonestacker, excavator terrain mapping</span>
 </div>
 <div style="background: var(--bg-surface); border-radius: 14px; padding: 16px 18px; display: flex; flex-direction: column; gap: 12px">
-<div style="display: flex; justify-content: space-between; align-items: center; gap: 8px"><span style="font-size: 16px; font-weight: 600">Delivery</span><span style="height: 22px; padding: 0 10px; border-radius: 9999px; background: var(--success-subtle); color: var(--success); font-size: 11px; font-weight: 600; display: inline-flex; align-items: center">Production</span></div>
-<div style="display: flex; flex-wrap: wrap; gap: 6px"><span style="height: 24px; padding: 0 10px; border-radius: 9999px; background: var(--neutral-subtle); color: var(--text); font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">CI/CD</span><span style="height: 24px; padding: 0 10px; border-radius: 9999px; background: var(--neutral-subtle); color: var(--text); font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">Automated testing</span><span style="height: 24px; padding: 0 10px; border-radius: 9999px; background: var(--neutral-subtle); color: var(--text); font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">Docker</span></div>
-<span style="font-size: 12px; color: var(--muted)">AuditDashboard</span>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 8px"><span style="font-size: 16px; font-weight: 600">Browser engines</span><span style="height: 22px; padding: 0 10px; border-radius: 9999px; background: var(--info-subtle); color: var(--info); font-size: 11px; font-weight: 600; display: inline-flex; align-items: center">Product</span></div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px"><span style="height: 24px; padding: 0 10px; border-radius: 9999px; background: var(--neutral-subtle); color: var(--text); font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">Rust</span><span style="height: 24px; padding: 0 10px; border-radius: 9999px; background: var(--neutral-subtle); color: var(--text); font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">WebAssembly</span><span style="height: 24px; padding: 0 10px; border-radius: 9999px; background: var(--neutral-subtle); color: var(--text); font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">Web Components</span></div>
+<span style="font-size: 12px; color: var(--muted)">Dipi Docs</span>
 </div>
 </div>
 </section>
@@ -279,6 +305,6 @@
 
 </div>
 <script src="assets/vendor/three.min.js"></script>
-<script src="assets/app.js?v=7"></script>
+<script src="assets/app.js?v=10"></script>
 </body>
 </html>

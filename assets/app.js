@@ -9,7 +9,7 @@ class Component extends DCLogic {
   componentDidMount() {
     this.alive = true; this.now = 0;
     this.cv = this.cv || {}; this.stages = {};
-    this.flags = { hms: { target: 0, auto: true, last: 0, changed: -10 }, or: { idx: 0, auto: true, last: 0, speakAt: -10 }, plc: { burst: 0, sent: 0 }, stone: {}, exc: { mode: 0 } };
+    this.flags = { hms: { target: 0, auto: true, last: 0, changed: -10 }, or: { idx: 0, auto: true, last: 0, speakAt: -10 }, plc: { burst: 0, sent: 0 }, stone: {}, dipi: {}, exc: { mode: 0 } };
     this.boot();
   }
   componentWillUnmount() {
@@ -694,6 +694,128 @@ class Component extends DCLogic {
     };
   }
 
+  build_dipi(s) {
+    // Dipi Docs: a browser window that opens a PDF, a Word document and an Excel sheet, then annotates each.
+    // Generic drawings only, not the product's real interface.
+    const T = s.T, P = this.P, f = this.flags.dipi, dark = this.darkNow;
+    const hex = (c) => '#' + c.toString(16).padStart(6, '0');
+    const C = { ink: hex(P.line), fill: hex(P.fill), grid: hex(P.grid), acc: hex(P.accent), d1: hex(P.d1), d2: hex(P.d2), d3: hex(P.d3), off: hex(P.off), page: dark ? '#262c35' : '#ffffff', muted: dark ? '#8c95a3' : '#5b6370' };
+    this.floor(s, 10, 10);
+    const W = 4.4, H = 2.75, Y = 1.95;
+    const win = new T.Group(); win.position.set(0.8, Y - 0.05, 0); s.pivot.add(win); s.ry = -0.32;
+    this.part(s, new T.BoxGeometry(W + 0.1, H + 0.1, 0.08), win, 0, 0, -0.045);
+    const cv = document.createElement('canvas'); cv.width = 1024; cv.height = 640;
+    const g = cv.getContext('2d'), tex = new T.CanvasTexture(cv);
+    tex.anisotropy = 4;
+    const screen = new T.Mesh(new T.PlaneGeometry(W, H), new T.MeshBasicMaterial({ map: tex })); screen.position.z = 0.0; win.add(screen);
+    const DOCS = [
+      { ext: 'PDF', name: 'site-survey.pdf', col: C.acc, say: 'Highlighting a passage' },
+      { ext: 'DOCX', name: 'proposal.docx', col: C.d1, say: 'Adding a pen note' },
+      { ext: 'XLSX', name: 'budget.xlsx', col: C.d2, say: 'Commenting on a cell' }
+    ];
+    // File cards that fly into the window when a document opens.
+    const cardTex = DOCS.map((d) => {
+      const c = document.createElement('canvas'); c.width = 160; c.height = 200; const x = c.getContext('2d');
+      x.fillStyle = C.page; x.fillRect(0, 0, 160, 200); x.strokeStyle = C.ink; x.lineWidth = 4; x.strokeRect(2, 2, 156, 196);
+      x.fillStyle = d.col; x.fillRect(2, 140, 156, 58);
+      x.fillStyle = dark ? '#111419' : '#ffffff'; x.font = '700 30px Manrope, "Segoe UI", sans-serif'; x.textAlign = 'center'; x.fillText(d.ext, 80, 182);
+      x.strokeStyle = C.grid; x.lineWidth = 6; for (let i = 0; i < 4; i++) { x.beginPath(); x.moveTo(24, 34 + i * 24); x.lineTo(i === 3 ? 90 : 136, 34 + i * 24); x.stroke(); }
+      return new T.CanvasTexture(c);
+    });
+    const card = new T.Mesh(new T.PlaneGeometry(0.64, 0.8), new T.MeshBasicMaterial({ map: cardTex[0], transparent: true })); s.pivot.add(card);
+    const rr = (x, y, w, h, r) => { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); };
+    const line = (x1, y1, x2, y2, col, w) => { g.strokeStyle = col; g.lineWidth = w || 2; g.beginPath(); g.moveTo(x1, y1); g.lineTo(x2, y2); g.stroke(); };
+    const text = (x, y, w, col, wd) => line(x, y, x + w, y, col || C.grid, wd || 7);
+    const PX = 300, PY = 92, PW = 560, PH = 520;
+    const draw = (di, show, an) => {
+      const d = DOCS[di];
+      g.fillStyle = C.fill; g.fillRect(0, 0, 1024, 640);
+      // Browser chrome
+      g.fillStyle = dark ? '#161a20' : '#eff1f3'; g.fillRect(0, 0, 1024, 64); line(0, 64, 1024, 64, C.grid, 2);
+      [C.acc, C.grid, C.grid].forEach((c, i) => { g.fillStyle = c; g.beginPath(); g.arc(28 + i * 24, 32, 7, 0, Math.PI * 2); g.fill(); });
+      rr(110, 16, 520, 32, 16); g.fillStyle = C.page; g.fill(); g.strokeStyle = C.grid; g.lineWidth = 2; g.stroke();
+      g.fillStyle = C.muted; g.font = '500 17px "JetBrains Mono", Consolas, monospace'; g.textAlign = 'left'; g.fillText('your-app.com/documents/' + d.name, 128, 38);
+      for (let i = 0; i < 4; i++) { rr(700 + i * 74, 18, 56, 28, 6); g.strokeStyle = i === 1 ? d.col : C.grid; g.lineWidth = 2; g.stroke(); }
+      // Thumbnail strip
+      g.fillStyle = dark ? '#1c2128' : '#e6e8eb'; g.fillRect(0, 64, 210, 576); line(210, 64, 210, 640, C.grid, 2);
+      for (let i = 0; i < 3; i++) { g.fillStyle = C.page; g.fillRect(55, 92 + i * 170, 100, 140); g.strokeStyle = i === 0 ? d.col : C.grid; g.lineWidth = i === 0 ? 4 : 2; g.strokeRect(55, 92 + i * 170, 100, 140); for (let k = 0; k < 5; k++) line(68, 112 + i * 170 + k * 18, k === 4 ? 110 : 142, 112 + i * 170 + k * 18, C.grid, 4); }
+      if (show <= 0) return;
+      g.globalAlpha = show;
+      g.fillStyle = C.page; g.fillRect(PX, PY, PW, PH); g.strokeStyle = C.grid; g.lineWidth = 2; g.strokeRect(PX, PY, PW, PH);
+      if (d.ext === 'PDF') {
+        text(PX + 40, PY + 56, 300, C.ink, 14);
+        for (let i = 0; i < 6; i++) text(PX + 40, PY + 100 + i * 24, i === 5 ? 180 : 230);
+        g.strokeStyle = C.grid; g.lineWidth = 2; g.strokeRect(PX + 300, PY + 92, 220, 140); line(PX + 300, PY + 232, PX + 410, PY + 150, C.grid); line(PX + 410, PY + 150, PX + 470, PY + 200, C.grid); line(PX + 470, PY + 200, PX + 520, PY + 170, C.grid);
+        for (let i = 0; i < 8; i++) text(PX + 40, PY + 270 + i * 26, i === 7 ? 260 : 480);
+        if (an > 0) { g.globalAlpha = show * 0.32; g.fillStyle = d.col; g.fillRect(PX + 34, PY + 270 + 2 * 26 - 12, 492 * an, 24); g.fillRect(PX + 34, PY + 270 + 3 * 26 - 12, 300 * Math.max(0, an * 2 - 1), 24); g.globalAlpha = show; }
+      } else if (d.ext === 'DOCX') {
+        text(PX + 40, PY + 56, 240, C.ink, 14);
+        for (let i = 0; i < 5; i++) text(PX + 40, PY + 100 + i * 24, i === 4 ? 300 : 480);
+        const tx = PX + 40, ty = PY + 240, cw = 120, ch = 40;
+        g.strokeStyle = C.grid; g.lineWidth = 2;
+        for (let r = 0; r <= 4; r++) line(tx, ty + r * ch, tx + cw * 4, ty + r * ch, C.grid);
+        for (let c = 0; c <= 4; c++) line(tx + c * cw, ty, tx + c * cw, ty + ch * 4, C.grid);
+        g.fillStyle = dark ? 'rgba(143,175,214,0.14)' : 'rgba(47,95,150,0.08)'; g.fillRect(tx, ty, cw * 4, ch);
+        for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) text(tx + 14, ty + 20 + r * ch, r === 0 ? 70 : 50 + ((r * 3 + c) % 3) * 14, r === 0 ? C.ink : C.grid, r === 0 ? 6 : 5);
+        for (let i = 0; i < 3; i++) text(PX + 40, PY + 430 + i * 24, i === 2 ? 220 : 480);
+        if (an > 0) {
+          g.strokeStyle = d.col; g.lineWidth = 5; g.lineCap = 'round'; g.beginPath();
+          const N = Math.floor(60 * an); for (let i = 0; i <= N; i++) { const u = i / 60, x = PX + 40 + u * 300, y = PY + 116 + 18 + Math.sin(u * 30) * 5; if (i) g.lineTo(x, y); else g.moveTo(x, y); }
+          g.stroke(); g.lineCap = 'butt';
+          if (an > 0.75) { g.globalAlpha = show * Math.min(1, (an - 0.75) * 4); rr(PX + 360, PY + 100, 170, 70, 10); g.fillStyle = C.page; g.fill(); g.strokeStyle = d.col; g.lineWidth = 3; g.stroke(); text(PX + 376, PY + 126, 120, d.col, 5); text(PX + 376, PY + 148, 80, C.grid, 5); g.globalAlpha = show; }
+        }
+      } else {
+        const gx = PX + 20, gy = PY + 20, cw = 104, ch = 34;
+        g.fillStyle = dark ? '#1c2128' : '#eff1f3'; g.fillRect(gx, gy, cw * 5 + 30, ch); g.fillRect(gx, gy, 30, ch * 9);
+        g.fillStyle = C.muted; g.font = '600 15px Manrope, "Segoe UI", sans-serif'; g.textAlign = 'center';
+        'ABCDE'.split('').forEach((l, i) => g.fillText(l, gx + 30 + cw * i + cw / 2, gy + 23));
+        for (let r = 1; r < 9; r++) g.fillText(String(r), gx + 15, gy + ch * r + 23);
+        for (let r = 0; r <= 9; r++) line(gx, gy + r * ch, gx + 30 + cw * 5, gy + r * ch, C.grid, 1.5);
+        for (let c = 0; c <= 5; c++) line(gx + 30 + c * cw, gy, gx + 30 + c * cw, gy + ch * 9, C.grid, 1.5);
+        for (let r = 1; r < 9; r++) for (let c = 0; c < 5; c++) text(gx + 30 + c * cw + (c ? 40 : 12), gy + ch * r + 17, c ? 50 : 70, c === 4 && r === 8 ? C.ink : C.grid, 5);
+        const bx = PX + 60, by = PY + 470;
+        [60, 90, 70, 110, 85].forEach((h, i) => { g.fillStyle = i === 3 ? d.col : C.grid; g.fillRect(bx + i * 60, by - h * 0.9, 34, h * 0.9); });
+        line(bx - 10, by, bx + 300, by, C.grid, 2);
+        if (an > 0) {
+          const cx = gx + 30 + cw * 3, cy = gy + ch * 4;
+          g.strokeStyle = d.col; g.lineWidth = 4; g.strokeRect(cx, cy, cw, ch);
+          g.beginPath(); g.moveTo(cx + cw - 14, cy); g.lineTo(cx + cw, cy); g.lineTo(cx + cw, cy + 14); g.closePath(); g.fillStyle = d.col; g.fill();
+          g.globalAlpha = show * Math.min(1, an * 1.6); rr(cx + cw + 16, cy - 30, 150, 74, 10); g.fillStyle = C.page; g.fill(); g.strokeStyle = d.col; g.lineWidth = 3; g.stroke();
+          text(cx + cw + 32, cy - 4, 110 * Math.min(1, an * 1.4), d.col, 5); text(cx + cw + 32, cy + 18, 70 * Math.max(0, an * 2 - 1), C.grid, 5); g.globalAlpha = show;
+        }
+      }
+      g.globalAlpha = 1;
+    };
+    const DUR = 5.5;
+    let di = 0, t0 = 0, last = -1, lastKey = '';
+    f.jump = (i) => { di = i; t0 = -1; };
+    const from = new T.Vector3(-3.6, 0.9, 1.2), into = new T.Vector3(0.8 + 0.25, Y, 0.1);
+    return {
+      cam: [0.2, 2.4, 7.6], look: [0.35, 1.8, 0], sway: 0.12, noDrag: true,
+      update: (t) => {
+        if (t0 < 0) t0 = t;
+        let u = t - t0;
+        if (u > DUR) { di = (di + 1) % 3; t0 = t; u = 0; }
+        const fly = Math.min(1, u / 0.8), e = fly * fly * (3 - 2 * fly);
+        card.material.map = cardTex[di];
+        card.position.lerpVectors(from, into, e); card.position.y += Math.sin(e * Math.PI) * 0.6;
+        card.rotation.set(0, (1 - e) * 0.6 - 0.32, (1 - e) * 0.25); card.scale.setScalar(1 - 0.75 * e); card.visible = fly < 1;
+        const show = Math.max(0, Math.min(1, (u - 0.75) / 0.4)), an = Math.max(0, Math.min(1, (u - 1.6) / 2.2));
+        const key = di + ':' + show.toFixed(2) + ':' + an.toFixed(3);
+        if (key !== lastKey) { lastKey = key; draw(di, show, an); tex.needsUpdate = true; }
+        if (t - last > 0.2) {
+          last = t; const d = DOCS[di];
+          this.setState({ dpName: d.name, dpSay: u < 0.8 ? 'Opening in the browser' : an <= 0 ? 'Rendered on the device' : an < 1 ? d.say : 'Annotation saved', dpSel: di });
+        }
+      }
+    };
+  }
+  setDipi(i) {
+    const f = this.flags.dipi;
+    if (f.jump) f.jump(i);
+    this.setState({ dpSel: i });
+  }
+
   husky(s, parent) {
     // Clearpath Husky A200 with an extrusion deck, rear LiDAR mast, Jetson box and an xArm 850 with wrist sensors.
     const T = s.T, P = this.P;
@@ -1098,7 +1220,10 @@ class Component extends DCLogic {
       this.orPicks = this.orCmds.map((c, i) => () => { if (this.flags) this.orSet(i, true); });
       const ref = (k) => (node) => { this.cv[k] = node; if (node) this.mount(k); };
       this._fns = {
-        refHms: ref('hms'), refOr: ref('or'), refPlc: ref('plc'), refSix: ref('six'), refStone: ref('stone'), refExc: ref('exc'),
+        refHms: ref('hms'), refOr: ref('or'), refPlc: ref('plc'), refSix: ref('six'), refStone: ref('stone'), refExc: ref('exc'), refDipi: ref('dipi'),
+        dipiPdf: () => { if (this.flags) this.setDipi(0); },
+        dipiDoc: () => { if (this.flags) this.setDipi(1); },
+        dipiXls: () => { if (this.flags) this.setDipi(2); },
         excLocal: () => { if (this.flags) this.setExc(0); },
         excGlobal: () => { if (this.flags) this.setExc(1); },
         excDrive: () => { if (this.flags) this.setExc(2); },
@@ -1123,6 +1248,7 @@ class Component extends DCLogic {
       stp0: st.stp0 || '', stp1: st.stp1 || '', stp2: st.stp2 || '', stp3: st.stp3 || '', stp4: st.stp4 || '',
       exA: (st.exMode || 0) === 0 ? 'true' : 'false', exB: st.exMode === 1 ? 'true' : 'false', exC: st.exMode === 2 ? 'true' : 'false',
       exHeight: st.exMode === 2 ? 'none' : 'flex', exSlope: st.exMode === 2 ? 'flex' : 'none',
+      dpName: st.dpName || '', dpSay: st.dpSay || '', dpA: (st.dpSel || 0) === 0 ? 'true' : 'false', dpB: st.dpSel === 1 ? 'true' : 'false', dpC: st.dpSel === 2 ? 'true' : 'false',
       exPhase: st.exPhase || '', exSw: st.exSw || '0.0', exBm: st.exBm || '0.0', exAr: st.exAr || '0.0', exBk: st.exBk || '0.0', exCov: st.exCov || '0 %'
     });
   }
