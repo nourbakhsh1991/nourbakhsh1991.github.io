@@ -19,7 +19,7 @@
 <nav style="display: flex; flex-wrap: wrap; gap: 4px; font-size: 14px; font-weight: 600">
 <a href="#work" style="text-decoration: none; color: var(--text-2); padding: 0 14px; height: 44px; display: inline-flex; align-items: center; border-radius: 9999px">Projects</a>
 <a href="#experience" style="text-decoration: none; color: var(--text-2); padding: 0 14px; height: 44px; display: inline-flex; align-items: center; border-radius: 9999px">Experience</a>
-<a href="#education" style="text-decoration: none; color: var(--text-2); padding: 0 14px; height: 44px; display: inline-flex; align-items: center; border-radius: 9999px">Education</a>
+<!-- education hidden: <a href="#education" style="text-decoration: none; color: var(--text-2); padding: 0 14px; height: 44px; display: inline-flex; align-items: center; border-radius: 9999px">Education</a> -->
 <div class="theme" role="group" aria-label="Theme" style="display: inline-flex; gap: 2px; padding: 4px; border-radius: 24px; background: var(--bg-surface); border: 1px solid var(--border-subtle); margin: 0 4px">
 <button aria-label="Follow system theme" title="Follow system" aria-pressed="" data-on="toSystem" style="width: 36px; height: 36px; border: none; border-radius: 9999px; background: transparent; color: var(--text-2); cursor: pointer; display: inline-flex; align-items: center; justify-content: center" data-bind="aria-pressed:thSys"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.75" y="2.75" width="12.5" height="8.5" rx="1.5"></rect><path d="M5.5 14h5M8 11.25V14"></path></svg></button>
 <button aria-label="Light theme" title="Light" aria-pressed="" data-on="toLight" style="width: 36px; height: 36px; border: none; border-radius: 9999px; background: transparent; color: var(--text-2); cursor: pointer; display: inline-flex; align-items: center; justify-content: center" data-bind="aria-pressed:thLight"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3"></circle><path d="M8 1.5v1.5M8 13v1.5M1.5 8H3M13 8h1.5M3.4 3.4l1.06 1.06M11.54 11.54l1.06 1.06M3.4 12.6l1.06-1.06M11.54 4.46l1.06-1.06"></path></svg></button>
@@ -261,12 +261,13 @@
 <section id="about" style="max-width: 1280px; margin: 0 auto; padding: 96px 32px 0; display: flex; flex-wrap: wrap; gap: 64px 48px; align-items: flex-start">
 <div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
 <div class="reveal sechead"><span class="sq" aria-hidden="true"></span><h2>About</h2><span class="rule" aria-hidden="true"></span></div>
-<div class="reveal" style="display: flex; flex-direction: column; gap: 12px">
+<div class="reveal" style="display: flex; flex-direction: column; gap: 12px; max-width: 720px">
 <p style="margin: 0; color: var(--text-2)">Developer by trade, roboticist by training. I've worked across four industries: audit, medical, energy and robotics. I work closely with engineering, quality control and sales.</p>
 <p style="margin: 0; font-size: 14px; color: var(--muted)">English (C1) · Persian (native)</p>
 <!-- TODO photo: <img src="assets/photo.jpg" alt="Reza Nourbakhsh" style="width:100%;max-width:360px;border-radius:14px;margin-top:8px"> -->
 </div>
 </div>
+<!-- education hidden (remove this comment wrapper to restore)
 <div id="education" style="flex: 1.6 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
 <div class="reveal sechead"><span class="sq" aria-hidden="true"></span><h2>Education</h2><span class="rule" aria-hidden="true"></span></div>
 <div class="reveal" style="display: flex; flex-direction: column; gap: 12px">
@@ -284,6 +285,7 @@
 </div>
 </div>
 </div>
+-->
 </section>
 
 <section id="contact" style="max-width: 1280px; margin: 0 auto; padding: 96px 32px 0; display: flex; flex-direction: column; gap: 24px">
